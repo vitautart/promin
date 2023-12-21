@@ -1,0 +1,17 @@
+//struct Vector
+//{
+//    x: f32,
+//    y: f32,
+//    z: f32,
+//}
+
+// Commnets
+fn test() -> i32
+{
+    //let name: &str = "Some struct\n stuff sdfsdf";
+    let i:f32 = 5f32;
+    //let j = i; // Some i 
+    //let another_name: &str = "More stuff";
+    let c: char = '\n';
+    return i;
+}
