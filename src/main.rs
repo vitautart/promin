@@ -1,7 +1,6 @@
 use std::fs;
 
 #[derive(Debug)]
-//enum Token<'a>
 enum Token
 {
     Semicolon,
@@ -32,7 +31,6 @@ enum Token
     Return,
 
     Identifier(String),
-    //NumberGeneral(&'a str),
     NumberGeneral(String),
     //NumberF64(f64),
     //NumberU64(u64),
@@ -111,11 +109,9 @@ fn lex(filedata: &String) -> Vec<Token>
             }
         }
         else if let Some(Token::NumberGeneral(ref mut name)) = state 
-        //else if let Some(Token::NumberGeneral(name)) = state 
         {
             if is_identifier_char(c)
             {
-                //state = Some(Token::NumberGeneral(&filedata[n..name.len() + 1]));
                 name.push(c);
                 continue;
             }
@@ -158,7 +154,6 @@ fn lex(filedata: &String) -> Vec<Token>
         if c.is_whitespace() { }
         else if is_start_identifier_char(c) { state = Some(Token::Identifier(String::from(c))); }
         else if c.is_ascii_digit() { state = Some(Token::NumberGeneral(String::from(c))); }
-        //else if c.is_ascii_digit() { state = Some(Token::NumberGeneral(&filedata[n..(n+1)])); }
 
         else if c == ';' { tokens.push(Token::Semicolon); }
         else if c == ',' { tokens.push(Token::Comma); }
