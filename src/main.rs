@@ -38,6 +38,8 @@ enum Token
     String(String),
     Char(String),
 
+    Unknown(char),
+
     Comment,
 }
 
@@ -61,6 +63,11 @@ fn is_identifier_char(c: char) -> bool
 fn is_start_identifier_char(c: char) -> bool
 {
     c.is_alphabetic() || c == '_' 
+}
+
+fn is_number_char(c: char) -> bool
+{
+    c.is_alphanumeric() || c == '_' || c == '.'
 }
 
 fn lex(filedata: &String) -> Vec<Token>
@@ -110,7 +117,7 @@ fn lex(filedata: &String) -> Vec<Token>
         }
         else if let Some(Token::NumberGeneral(ref mut name)) = state 
         {
-            if is_identifier_char(c)
+            if is_number_char(c)
             {
                 name.push(c);
                 continue;
@@ -176,6 +183,7 @@ fn lex(filedata: &String) -> Vec<Token>
         else if c == '/' { tokens.push(Token::Divide); state = Some(Token::Divide); }
         else if c == '"' { state = Some(Token::String(String::new())); }
         else if c == '\'' { state = Some(Token::Char(String::new())); }
+        else { tokens.push(Token::Unknown(c)); }
     }
 
     tokens
